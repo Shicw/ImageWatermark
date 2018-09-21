@@ -7,9 +7,11 @@
 </head>
 <body>
 	<label>请选择图片</label><br>
-	<input type="file" name="image" id="image"><br>
+	<input type="file" id="image"><br>
 	<label>请输入文字</label><br>
-	<input type="text" name="content" id="content"><br>
+	<input type="text" id="content"><br>
+	<label>请选择文字字号</label><br>
+	<input type="number" id="fontSize" value='20' max="50" min="10">px<br>
 	<button>提交</button><br>
 	<img src="" alt="" id="newImage">
 </body>
@@ -20,9 +22,11 @@
 	function getImage(){
 		var image = $("#image")[0].files[0];
 		var content = $("#content").val();
+		var fontSize = $("#fontSize").val();
 		var formData = new FormData();
 		formData.append('image', image);
 		formData.append('content',content);
+		formData.append('fontSize',fontSize);
 		$.ajax({
 			type: "post",
 			url: "handle.php",

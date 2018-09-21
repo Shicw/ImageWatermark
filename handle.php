@@ -6,6 +6,7 @@
  */
 $img= $_FILES['image']['tmp_name'];//接收图片信息
 $content = $_POST['content'];//接收水印内容
+$fontSize = $_POST['fontSize'];//接收字号
 //获取图片信息,其中索引为2的数组值为照片的类型号
 $info = getimagesize($img);
 //通过类型号获取图片的类型(jpg/png)
@@ -18,7 +19,7 @@ $newImage = $ext($img);
 //设置颜色和透明度
 $color = imagecolorallocatealpha($newImage, 0, 0, 0, 90);
 //设置图片文字位置,大小,字体,透明度等信息
-imagettftext($newImage, 30, 0, 20, 80, $color, 'ttf/consolas.ttf', $content);
+imagettftext($newImage, $fontSize, 0, 10, 50, $color, 'ttf/consolas.ttf', $content);
 header("content-type:" . $info['mime']);
 $func = "image{$type}";
 ob_start();
