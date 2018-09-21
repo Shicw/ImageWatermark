@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>PHP给照片添加水印</title>
+	<script src="jquery-1.11.3.js"></script>
+</head>
+<body>
+	<label>请选择图片</label><br>
+	<input type="file" name="image" id="image"><br>
+	<label>请输入文字</label><br>
+	<input type="text" name="content" id="content"><br>
+	<button>提交</button><br>
+	<img src="" alt="" id="newImage">
+</body>
+<script>
+	$(function(){
+		$("button").on('click',getImage);
+	});
+	function getImage(){
+		var image = $("#image")[0].files[0];
+		var content = $("#content").val();
+		var formData = new FormData();
+		formData.append('image', image);
+		formData.append('content',content);
+		$.ajax({
+			type: "post",
+			url: "handle.php",
+			dataType: "json",
+			data: formData,
+			cache: false,
+			processData: false,
+			contentType: false,
+			success: function (result) {
+				//console.log(result);
+				document.getElementById("newImage").src = result;
+			}
+        });
+	}
+</script>
+</html>
